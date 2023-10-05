@@ -36,5 +36,29 @@ public class SecondLessonTest {
         String locationHeader=response.getHeader("Location");
         System.out.println(locationHeader);
             }
+    @Test
+    public void testRestAssuredEx7(){
+        System.out.println("Ex7:");
+        String url="https://playground.learnqa.ru/api/long_redirect";
+        int statusCode=0;
+        int count=0;
+        while(statusCode!=200)  {
+        Response response = RestAssured
+                    .given()
+                    .redirects()
+                    .follow(false)
+                    .when()
+                    .get(url)
+                    .andReturn();
 
+            statusCode = response.getStatusCode();
+            String locationHeader = response.getHeader("Location");
+            if (locationHeader==null) break;
+            System.out.println(locationHeader);
+            url=locationHeader;
+            count++;
+
+        }
+        System.out.println("Количество редиректов:"+count);
+    }
 }
