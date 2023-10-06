@@ -1,9 +1,9 @@
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 import java.util.Map;
+import static java.lang.Thread.sleep;
 
 public class SecondLessonTest {
     @Test
@@ -61,4 +61,56 @@ public class SecondLessonTest {
         }
         System.out.println("Количество редиректов:"+count);
     }
-}
+    @Test
+    public void testRestAssuredEx8() throws InterruptedException {
+        System.out.println("Ex8:");
+        String statusBeforeE="Job is NOT ready";
+        String statusAfterE="Job is ready";
+
+        Response response = RestAssured
+                .get ("https://playground.learnqa.ru/ajax/api/longtime_job")
+                .andReturn();
+
+        String token = response.jsonPath().get("token");
+        int seconds = response.jsonPath().get("seconds");
+
+        Response response2 = RestAssured
+                .given()
+                .queryParam("token",token)
+                .get ("https://playground.learnqa.ru/ajax/api/longtime_job")
+                .andReturn();
+
+        String statusBefore = response2.jsonPath().get("status");
+        if (statusBefore.equals(statusBeforeE)) {
+            System.out.println("Тест пройден, получен корректный ответ:"+statusBeforeE);
+        } else {
+            System.out.println("Тест не пройден, получен некорректный ответ:"+statusBefore);
+        }
+        long mseconds =1000*seconds+1;
+        sleep(mseconds);
+
+        Response response3 = RestAssured
+                .given()
+                .queryParam("token",token)
+                .get ("https://playground.learnqa.ru/ajax/api/longtime_job")
+                .andReturn();
+
+        String statusAfter = response3.jsonPath().get("status");
+        String result = response3.jsonPath().get("result");
+
+        if (statusAfter.equals(statusAfterE)) {
+            System.out.println("Тест пройден, получен корректный ответ:"+statusAfterE);
+        } else {
+            System.out.println("Тест не пройден, получен некорректный ответ:"+statusAfter);
+        }
+
+        if (result!=null) {
+            System.out.println("Поле result содержится в ответе:"+result);
+        } else {
+            System.out.println("Поле result отсутствует в ответе");
+        }
+
+    }
+    }
+
+
