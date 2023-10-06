@@ -23,4 +23,14 @@ public class ThirdLessonTest {
         //System.out.println("cookie:"+cookie);
         assertEquals("{HomeWork=hw_value}", cookie, "Неправильные cookie:"+cookie);
     }
+
+    @Test
+    public void Ex12(){
+        Response response = RestAssured
+                .get("https://playground.learnqa.ru/api/homework_header")
+                .andReturn();
+        //System.out.println(response.getHeaders().toString());
+        String header = response.getHeader("x-secret-homework-header");
+        assertEquals("Some secret value", header, "Неправильный заголовок:"+header);
+    }
 }
