@@ -48,7 +48,6 @@ public class UserAuthTest extends BaseTestCase {
     @Severity(SeverityLevel.MINOR)
     @ParameterizedTest
     @ValueSource(strings = {"cookie", "headers"})
-    @Link("https://software-testing.ru/lms/mod/url/view.php?id=289458")
     @Story("Negative auth user")
 
     public void testNegativeAuthUser(String condition) {
@@ -89,7 +88,6 @@ public class UserAuthTest extends BaseTestCase {
        @Description("This test successfully authorize user by email and password")
        @DisplayName("Test positive auth user")
        @Severity(SeverityLevel.CRITICAL)
-       @Link("https://software-testing.ru/lms/mod/url/view.php?id=289457")
        @Story("Positive auth user")
 
     public void testAuthUser(){

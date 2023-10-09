@@ -54,7 +54,7 @@ public class ApiCoreRequests {
                 .body(bodyData)
                 .post(url)
                 .andReturn();
-    }
+            }
 
     @Step("Make a post request with jsonpath")
     public JsonPath makePostRequestAndJsonPath(String url, Map<String, String> bodyData) {
