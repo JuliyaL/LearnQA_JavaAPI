@@ -10,7 +10,7 @@ import static java.lang.Thread.sleep;
 public class SecondLessonTest {
     @Test
     public void testRestAssuredEx5(){
-        System.out.println("Ex5:");
+
         Response response = RestAssured
                 .get ("https://playground.learnqa.ru/api/get_json_homework")
                 .andReturn();
